@@ -1,6 +1,6 @@
 import detection
 import blocker
-import logging
+import visualization
 
 def main():
     pass
