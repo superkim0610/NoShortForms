@@ -5,20 +5,26 @@ import pyautogui
 import cv2 as cv
 from PIL import ImageGrab
 
+# codes for taking screenshots
 # screenshot = ImageGrab.grab()
 # screenshot.save("screenshot.png")
 # screenshot.close()
 
 def detect():
+    """
+    TODO
+    - improve with confidnece variable on opencv(matchTemplate)
+    """
     thumb_up_icon1 = cv.imread("resource/thumb_up_icon1.png")
     thumb_up_icon2 = cv.imread("resource/thumb_up_icon2.png")
     thumb_up_icon3 = cv.imread("resource/thumb_up_icon3.png")
     thumb_up_icon4 = cv.imread("resource/thumb_up_icon4.png")
     images = [thumb_up_icon1, thumb_up_icon2, thumb_up_icon3, thumb_up_icon4]
     
-    screenshot = ImageGrab.grab()
+    screenshot = get_image()
     result = []
     
+    # detecting 8 images
     for image in images:
         try:
             result.append(pyautogui.locate(image, screenshot, step=2, confidence=0.9))
@@ -30,7 +36,8 @@ def detect():
         except:
             pass
         
-    print(len(result)/8)
+    # print(len(result)/8)
+    print("\rSHUT DOWN!!" if len(result) >= 2 else "\r" + " "* 15 + "\r...", end='')
     
     # try:
     #     g = [pyautogui.locate(thumb_up_icon1, screenshot, confidence=0.9),\
@@ -53,7 +60,7 @@ def detect():
     #     pyautogui.moveTo((_.left, _.top))
 
 def get_image():
-    pass
+    return ImageGrab.grab()
 
 while True:
     t0 = time.time()
